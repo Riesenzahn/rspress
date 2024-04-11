@@ -28,7 +28,8 @@ function deletePriviteKey<T>(obj: T): T {
 
 export async function siteDataVMPlugin(context: FactoryContext) {
   const { config, alias, userDocRoot, routeService, pluginDriver } = context;
-  const userConfig = config;
+  // deep clone to avoid unexpected changes to objects
+  const userConfig = JSON.parse(JSON.stringify(config));
   const replaceRules = userConfig?.replaceRules || [];
   // If the dev server restart when config file, we will reuse the siteData instead of extracting the siteData from source files again.
   const domain =
